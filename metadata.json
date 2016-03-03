@@ -1,0 +1,14 @@
+{
+  "name": "dougneal-restful",
+  "version": "0.1.0",
+  "author": "dougneal",
+  "summary": "A reference module, demonstrating management of config behind RESTful APIs.",
+  "license": "GPLv3",
+  "source": "https://github.com/dougneal/puppet-restful/",
+  "project_page": "https://github.com/dougneal/puppet-restful/",
+  "issues_url": "https://github.com/dougneal/puppet-restful/issues",
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+  ]
+}
+
