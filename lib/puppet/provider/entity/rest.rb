@@ -12,9 +12,9 @@ Puppet::Type.type(:entity).provide(:rest, :parent => Puppet::Provider::RestClien
       if not response.nil?
         response.each do |entity_json|
           entity_resource = {
+            :ensure     => :present,
             :id         => entity_json['id'],
             :name       => entity_json['name'],
-            :ensure     => :present,
             :attributes => entity_json['attributes']
           }
 

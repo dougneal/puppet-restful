@@ -4,12 +4,16 @@ Puppet::Type.newtype(:entity) do
 
   ensurable
 
+  newproperty(:id) do
+    desc "The API's identifier for the resource."
+  end
+
   newparam(:name) do
     desc "The name of the item"
     isnamevar
   end
 
-  newparam(:attributes)
+  newproperty(:attributes)
 
 end
 
