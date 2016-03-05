@@ -43,6 +43,7 @@ class Puppet::Provider::RestClient < Puppet::Provider
 
     if not content.nil? then
       request['Content-Type'] = 'application/json'
+      request.body = content
     end
 
     response = http.request(request)
