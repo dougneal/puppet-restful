@@ -28,6 +28,15 @@ Puppet::Type.type(:entity).provide(:rest, :parent => Puppet::Provider::RestClien
     return entity_resources
   end
 
+  def self.prefetch(managed_entities)
+    discovered_entities = self.instances
+    managed_entities.keys.each do |entity_name|
+      if provider = discovered_entities.find { |entity| entity.name == entity_name }
+        managed_entities[entity_name].provider = provider
+      end
+    end
+  end
+
   def create
     begin 
       json_document_hash = {}
@@ -45,7 +54,7 @@ Puppet::Type.type(:entity).provide(:rest, :parent => Puppet::Provider::RestClien
 
   def destroy
     begin
-      self.class.rest_delete('/' + @property_hash[:id])
+      self.class.rest_delete(sprintf('/%d', @property_hash[:id]))
     rescue Exception
       raise Puppet::Error, "Failed to delete entity #{@resource[:name]}: #{$!}"
     end
