@@ -45,6 +45,7 @@ Puppet::Type.type(:entity).provide(:rest, :parent => Puppet::Provider::RestClien
 
   def destroy
     begin
+      self.class.rest_delete('/' + @property_hash[:id])
     rescue Exception
       raise Puppet::Error, "Failed to delete entity #{@resource[:name]}: #{$!}"
     end
