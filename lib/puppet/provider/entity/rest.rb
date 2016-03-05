@@ -29,7 +29,11 @@ Puppet::Type.type(:entity).provide(:rest, :parent => Puppet::Provider::RestClien
   end
 
   def create
-    begin
+    begin 
+      json_document_hash = {}
+      json_document_hash['name'] = @resource['name']
+      json_document_hash['attributes'] = @resource['attributes'] if @resource['attributes']
+      response = self.class.rest_post '/', JSON.generate(json_document_hash)
     rescue Exception
       raise Puppet::Error, "Failed to create entity #{@resource[:name]}: #{$!}"
     end
