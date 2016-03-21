@@ -1,9 +1,14 @@
 class Puppet::Provider::RestClient < Puppet::Provider
   
+  # These libraries should be present on any plain old Ruby installation.
   require 'net/http'
   require 'uri'
   require 'json'
 
+  # All the methods are class methods (self.method), for two reasons:
+  #  - none of the methods ever need to access instance variables.
+  #  - they will be called by other class methods, i.e. self.instances.
+  
   def self.configuration
     #path = File.join(Puppet[:confdir], 'restful-api.json')
     #if File.exists?(path)
