@@ -10,15 +10,12 @@ class Puppet::Provider::RestClient < Puppet::Provider
   #  - they will be called by other class methods, i.e. self.instances.
   
   def self.configuration
-    #path = File.join(Puppet[:confdir], 'restful-api.json')
-    #if File.exists?(path)
-    #  return JSON.parse(File.new(path))
-    #end
-
-    #return {}
-    return {
-      'url' => 'http://localhost:3000/muppets'
-    }
+    path = File.join(Puppet[:confdir], 'restful-api.json')
+    begin
+      return JSON.parse(File.new(path).read)
+    rescue Exception => e
+      raise Puppet::Error, "puppet-restful couldn't load its configuration at #{path}: #{e.to_s}"
+    end
   end
 
   def self.rest_get (endpoint, options = {})
